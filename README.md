@@ -113,20 +113,17 @@ mvn archetype:generate \
 
 ## Required properties
 
-| Property             | Example                                                  | Notes                                                         |
-|---------------------|----------------------------------------------------------|---------------------------------------------------------------|
-| `groupId`            | `io.recruitcrm.geocoding`                               | Maven groupId                                                 |
-| `artifactId`         | `geocoding-package`                                     | Maven artifactId; usually the repo name                       |
-| `version`            | `1.0.0-SNAPSHOT`                                        | Initial version (semantic-release will manage from there)     |
-| `package`            | `io.recruitcrm.geocoding`                               | Java root package                                             |
-| `packageName`        | `Geocoding`                                             | PascalCase; drives the `<PackageName>AutoConfiguration` class |
-| `packageNameLower`   | `geocoding`                                             | Defaults to `artifactId`; used in a few config strings        |
-| `packageDescription` | `RecruitCRM geocoding shared library`                   | Free-form; lands in README + pom `<description>`              |
-| `springBootVersion`  | `3.5.8`                                                 | spring-boot-starter-parent version                            |
-| `sonarProjectKey`    | `Workforce-Cloud-Tech_geocoding-package`                | Defaults to `Workforce-Cloud-Tech_${artifactId}`              |
-| `repoUrl`            | `https://github.com/Workforce-Cloud-Tech/geocoding-package` | Defaults to GitHub URL based on artifactId                    |
-| `slackChannelId`     | `C012345ABCD`                                           | Slack channel for Jenkins build notifications                 |
-| `codeowners`         | `@parthibd @hardik0855`                                 | Goes into `.github/CODEOWNERS`                                |
+| Property             | Example                                                 | Notes                                                         |
+|---------------------|---------------------------------------------------------|---------------------------------------------------------------|
+| `groupId`            | `io.recruitcrm.geocoding`                              | Maven groupId                                                 |
+| `artifactId`         | `geocoding-package`                                    | Maven artifactId; usually the repo name                       |
+| `version`            | `1.0.0`                                        | Initial version (semantic-release will manage from there)     |
+| `package`            | `io.recruitcrm.geocoding`                              | Java root package                                             |
+| `packageName`        | `Geocoding`                                            | PascalCase; drives the `<PackageName>AutoConfiguration` class |
+| `packageNameLower`   | `geocoding`                                            | Defaults to `artifactId`; used in a few config strings        |
+| `packageDescription` | `RecruitCRM geocoding shared library`                  | Free-form; lands in README + pom `<description>`              |
+| `springBootVersion`  | `3.5.8`                                                | spring-boot-starter-parent version                            |
+| `sonarProjectKey`    | `Workforce-Cloud-Tech_geocoding-package`               | Defaults to `Workforce-Cloud-Tech_${artifactId}`              |
 
 ---
 

@@ -1,0 +1,32 @@
+#!/bin/sh
+#
+# Pre-commit hook: run Spotless check and Checkstyle check before allowing a commit.
+# Exits with non-zero status to abort the commit if either check fails.
+#
+# Install once: git config core.hooksPath .githooks
+# (Run from the repository root.)
+
+exec 1>&2
+
+set -e
+
+# Run checks only when Java files are staged
+if ! git diff --cached --name-only | grep -qE '\.java$'; then
+	echo "No Java files staged; skipping Spotless and Checkstyle."
+	exit 0
+fi
+
+echo "Running Spotless check..."
+if ! ./mvnw -q spotless:check; then
+	echo "Spotless check failed. Run './mvnw spotless:apply' to fix formatting, then commit again."
+	exit 1
+fi
+
+echo "Running Checkstyle check..."
+if ! ./mvnw -q checkstyle:check; then
+	echo "Checkstyle check failed. Fix the reported issues, then commit again."
+	exit 1
+fi
+
+echo "Spotless and Checkstyle checks passed."
+exit 0

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>io.recruitcrm.nebula</groupId>
+    <artifactId>nebula-archetype</artifactId>
+    <version>1.0.0</version>
+    <packaging>maven-archetype</packaging>
+
+    <name>Nebula — RecruitCRM Java Package Archetype</name>
+    <description>
+        Nebula: a Maven archetype that scaffolds a new RecruitCRM Java library/package
+        repository (publishable to AWS CodeArtifact). Modeled after recruitcrm-search-package-java.
+        Pre-configures Spring Boot starter-parent, jOOQ-friendly defaults, Spring Boot
+        AutoConfiguration plumbing, code style (Spotless + Spring Java Format + Checkstyle),
+        Jacoco, semantic-release, Jenkins build pipeline, pre-commit hook and CodeArtifact
+        deployment so a new shared library is publishable after a single command.
+    </description>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <archetype.plugin.version>3.2.1</archetype.plugin.version>
+    </properties>
+
+    <build>
+        <extensions>
+            <extension>
+                <groupId>org.apache.maven.archetype</groupId>
+                <artifactId>archetype-packaging</artifactId>
+                <version>${archetype.plugin.version}</version>
+            </extension>
+        </extensions>
+
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <artifactId>maven-archetype-plugin</artifactId>
+                    <version>${archetype.plugin.version}</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+</project>

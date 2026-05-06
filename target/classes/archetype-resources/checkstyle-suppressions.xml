@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!DOCTYPE suppressions PUBLIC
+        "-//Checkstyle//DTD SuppressionFilter Configuration 1.2//EN"
+        "https://checkstyle.org/dtds/suppressions_1_2.dtd">
+<suppressions>
+    <suppress files="[\\/]target[\\/].*" checks=".*" />
+
+    <!-- Tests: suppress javadoc & SpringMethodVisibility -->
+    <suppress files="[\\/]src[\\/]test[\\/]java[\\/].*" checks="Javadoc.*" />
+    <suppress files="[\\/]src[\\/]test[\\/]java[\\/].*" checks="SpringMethodVisibility" />
+    <suppress files=".*Tests\.java$" checks="Javadoc.*" />
+
+    <!-- Main sources: suppress all Javadoc checks (opt-in per file). -->
+    <suppress files="[\\/]src[\\/]main[\\/]java[\\/].*" checks="Javadoc.*" />
+
+    <!-- Project-wide style relaxations consistent with the rest of the platform. -->
+    <suppress files=".*" checks="LineLength" />
+    <suppress files=".*" checks="NewlineAtEndOfFile" />
+    <suppress files=".*" checks="SpringHeader" />
+    <suppress files=".*" checks="SpringLeadingWhitespace" />
+    <suppress files=".*" checks="SpringImportOrder" />
+    <suppress checks="LeftCurly" files=".*"/>
+</suppressions>

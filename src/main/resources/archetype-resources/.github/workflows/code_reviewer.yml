@@ -1,0 +1,17 @@
+on:
+  pull_request:
+    types:
+      - opened
+      - reopened
+      - ready_for_review
+      - synchronize
+    branches:
+      - dev
+      - main
+      - dev-*
+      - main-*
+  issue_comment:
+jobs:
+  call-workflow-passing-data:
+    uses: Workforce-Cloud-Tech/Albatross/.github/workflows/pr_agent.yml@dev
+    secrets: inherit

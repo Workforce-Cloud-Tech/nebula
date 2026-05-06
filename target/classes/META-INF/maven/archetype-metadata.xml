@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<archetype-descriptor xmlns="https://maven.apache.org/plugins/maven-archetype-plugin/archetype-descriptor/1.1.0"
+                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                      xsi:schemaLocation="https://maven.apache.org/plugins/maven-archetype-plugin/archetype-descriptor/1.1.0 https://maven.apache.org/xsd/archetype-descriptor-1.1.0.xsd"
+                      name="nebula-archetype">
+
+    <requiredProperties>
+        <!--
+            packageName drives Java class names (PascalCase). e.g. "Search", "Common", "Utility".
+            Used to generate ${packageName}AutoConfiguration as the Spring Boot autoconfig entry point.
+        -->
+        <requiredProperty key="packageName"/>
+
+        <!-- Lowercase form used in Slack notifications, locks, and a few config strings. -->
+        <requiredProperty key="packageNameLower">
+            <defaultValue>${artifactId}</defaultValue>
+        </requiredProperty>
+
+        <!-- Free-form description, ends up in the README and pom <description>. -->
+        <requiredProperty key="packageDescription">
+            <defaultValue>RecruitCRM ${packageName} shared library</defaultValue>
+        </requiredProperty>
+
+        <!-- Spring Boot starter-parent version. Bump in one place when the platform updates. -->
+        <requiredProperty key="springBootVersion">
+            <defaultValue>3.5.8</defaultValue>
+        </requiredProperty>
+
+        <!-- Sonar project key — defaults to the artifactId. -->
+        <requiredProperty key="sonarProjectKey">
+            <defaultValue>Workforce-Cloud-Tech_${artifactId}</defaultValue>
+        </requiredProperty>
+
+        <!-- GitHub repo URL — used in the README and the Jenkins commit-link slack message. -->
+        <requiredProperty key="repoUrl">
+            <defaultValue>https://github.com/Workforce-Cloud-Tech/${artifactId}</defaultValue>
+        </requiredProperty>
+
+        <!-- Slack channel id used by the Jenkins pipeline for build notifications. Override per-repo. -->
+        <requiredProperty key="slackChannelId">
+            <defaultValue>CHANGE_ME_SLACK_CHANNEL_ID</defaultValue>
+        </requiredProperty>
+
+        <!-- GitHub handle(s) for CODEOWNERS, e.g. "@parthibd @hardik0855". -->
+        <requiredProperty key="codeowners">
+            <defaultValue>@workforce-cloud-tech/java-platform</defaultValue>
+        </requiredProperty>
+    </requiredProperties>
+
+    <fileSets>
+        <!-- Root project files (filtered). The root pom.xml is handled implicitly by the archetype plugin. -->
+        <fileSet filtered="true" encoding="UTF-8">
+            <directory></directory>
+            <includes>
+                <include>README.md</include>
+                <include>.gitignore</include>
+                <include>.springjavaformatconfig</include>
+                <include>lombok.config</include>
+                <include>checkstyle.xml</include>
+                <include>checkstyle-suppressions.xml</include>
+                <include>settings.xml</include>
+                <include>package.json</include>
+                <include>release.config.js</include>
+            </includes>
+        </fileSet>
+
+        <!-- PR template uses lots of ## markdown headers which Velocity would strip; copy verbatim. -->
+        <fileSet filtered="false" encoding="UTF-8">
+            <directory></directory>
+            <includes>
+                <include>pull_request_template.md</include>
+            </includes>
+        </fileSet>
+
+        <fileSet filtered="true" encoding="UTF-8">
+            <directory>.github</directory>
+            <includes>
+                <include>**/*.yml</include>
+                <include>CODEOWNERS</include>
+            </includes>
+        </fileSet>
+
+        <fileSet filtered="false" encoding="UTF-8">
+            <directory>.githooks</directory>
+            <includes>
+                <include>**/*</include>
+            </includes>
+        </fileSet>
+
+        <fileSet filtered="false" encoding="UTF-8">
+            <directory>code-formatting</directory>
+            <includes>
+                <include>**/*</include>
+            </includes>
+        </fileSet>
+
+        <fileSet filtered="true" encoding="UTF-8">
+            <directory>scripts</directory>
+            <includes>
+                <include>**/*</include>
+            </includes>
+        </fileSet>
+
+        <!-- Java sources are placed under src/main/java/${package} thanks to packaged=true. -->
+        <fileSet filtered="true" packaged="true" encoding="UTF-8">
+            <directory>src/main/java</directory>
+            <includes>
+                <include>**/*.java</include>
+            </includes>
+        </fileSet>
+
+        <fileSet filtered="true" packaged="true" encoding="UTF-8">
+            <directory>src/test/java</directory>
+            <includes>
+                <include>**/*.java</include>
+            </includes>
+        </fileSet>
+
+        <!-- Spring Boot AutoConfiguration import file (filtered so the FQCN gets substituted). -->
+        <fileSet filtered="true" encoding="UTF-8">
+            <directory>src/main/resources</directory>
+            <includes>
+                <include>**/*.imports</include>
+                <include>**/*.properties</include>
+                <include>**/*.xml</include>
+                <include>**/*.yml</include>
+                <include>**/*.yaml</include>
+            </includes>
+        </fileSet>
+
+        <fileSet filtered="false" encoding="UTF-8">
+            <directory>src/test/resources</directory>
+            <includes>
+                <include>**/*</include>
+            </includes>
+        </fileSet>
+
+        <!-- Maven wrapper / mvnw scripts (kept verbatim). -->
+        <fileSet filtered="false" encoding="UTF-8">
+            <directory>.mvn</directory>
+            <includes>
+                <include>**/*</include>
+            </includes>
+        </fileSet>
+
+        <fileSet filtered="false" encoding="UTF-8">
+            <directory></directory>
+            <includes>
+                <include>mvnw</include>
+                <include>mvnw.cmd</include>
+            </includes>
+        </fileSet>
+    </fileSets>
+</archetype-descriptor>

@@ -66,24 +66,38 @@ mvn clean install -Darchetype.test.skip=true
 This publishes `io.recruitcrm.nebula:nebula-archetype:1.0.0` into your local
 `~/.m2`. Bump the archetype, re-run, done.
 
+### Prerequisites
+
+- **Java 21** + **Maven 3.8+** on `PATH` (Maven Archetype + Velocity do the
+  actual templating).
+- **Python 3.9+** on `PATH` (only used to drive the prompts and call Maven —
+  no third-party Python deps; standard library only).
+
 ---
 
 ## Generate a new package
 
-### Option A — convenience script
+### Option A — Python CLI (recommended)
 
 ```bash
-./generate.sh
+python3 generate.py
 ```
 
-The script prompts for everything (artifact id, package name, description, etc.)
-and runs `mvn archetype:generate` in the current directory. The new project
-will land at `./<artifactId>/`.
+`generate.py` is a small, cross-platform replacement for the old
+`generate.sh`. It uses only the Python standard library: it prompts for the
+required values (artifact id, package name, description, etc.), validates
+them, and then shells out to `mvn archetype:generate` to do the real
+templating via **Maven Archetype + Velocity**. Works identically on macOS,
+Linux and Windows — no Bash required.
 
-Non-interactive:
+The new project is written to `<output-dir>/<artifactId>/` (default
+`output-dir` is the **parent** of this archetype repo, so the new package
+lands as a sibling rather than nested inside Nebula).
+
+Pass everything non-interactively:
 
 ```bash
-./generate.sh \
+python3 generate.py \
   --artifact-id geocoding-package \
   --package-name Geocoding \
   --group-id io.recruitcrm.geocoding \
@@ -91,7 +105,22 @@ Non-interactive:
   --output-dir ~/code/recruitcrm
 ```
 
+Power-user overrides (forwarded to Maven only when explicitly set, so the
+archetype-side defaults from `archetype-metadata.xml` still apply otherwise):
+
+```bash
+python3 generate.py \
+  --artifact-id geocoding-package \
+  --repo-url https://github.com/Workforce-Cloud-Tech/geocoding-package \
+  --slack-channel-id C0123456789 \
+  --codeowners "@Workforce-Cloud-Tech/search"
+```
+
+Run `python3 generate.py --help` for the full flag list.
+
 ### Option B — raw Maven
+
+If you'd rather skip the Python wrapper entirely, call Maven directly:
 
 ```bash
 mvn archetype:generate \
@@ -108,6 +137,10 @@ mvn archetype:generate \
   -DspringBootVersion=3.5.8 \
   -DinteractiveMode=false
 ```
+
+Both options end up running the same Maven Archetype + Velocity pipeline; the
+Python wrapper just adds prompts, defaults and the safety checks the old
+shell script had.
 
 ---
 
@@ -133,13 +166,20 @@ mvn archetype:generate \
 nebula/
 ├── pom.xml                                       # The archetype itself (packaging=maven-archetype)
 ├── README.md                                     # This file
-├── generate.sh                                   # Helper wrapper around `mvn archetype:generate`
+├── generate.py                                   # Cross-platform Python wrapper around `mvn archetype:generate`
 └── src/
     ├── main/resources/
-    │   ├── META-INF/maven/archetype-metadata.xml # Property + fileSet descriptor
-    │   └── archetype-resources/                  # Templated project skeleton
-    └── test/resources/projects/basic/            # Smoke test config
+    │   ├── META-INF/maven/archetype-metadata.xml # Property + fileSet descriptor (consumed by mvn archetype)
+    │   └── archetype-resources/                  # Templated project skeleton (Velocity placeholders)
+    └── test/resources/projects/basic/            # Maven smoke-test config
 ```
+
+`generate.py` is a thin orchestration layer: it gathers inputs, validates the
+target directory, and invokes `mvn archetype:generate`. The actual file
+rendering — substituting `${packageName}`, relocating files under
+`src/main/java/<package as path>/...`, etc. — is done by Maven Archetype +
+Velocity, exactly as before. The only thing we removed was the Bash script;
+the templating engine and template files are unchanged.
 
 ---
 

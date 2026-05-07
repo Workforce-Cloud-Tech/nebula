@@ -135,6 +135,15 @@
             </includes>
         </fileSet>
 
+        <!-- Maven Site descriptor: filtered so ${artifactId} becomes the new
+             project's name in the generated site banner. -->
+        <fileSet filtered="true" encoding="UTF-8">
+            <directory>src/site</directory>
+            <includes>
+                <include>**/*.xml</include>
+            </includes>
+        </fileSet>
+
         <!-- Maven wrapper / mvnw scripts (kept verbatim). -->
         <fileSet filtered="false" encoding="UTF-8">
             <directory>.mvn</directory>

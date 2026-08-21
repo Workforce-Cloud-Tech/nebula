@@ -7,6 +7,10 @@ ${packageDescription}
 Java library scaffolded from the **Nebula** archetype. Publishes to the RecruitCRM
 **java-packages** AWS CodeArtifact repository via Jenkins + semantic-release.
 
+Logging uses `io.recruitcrm.logging` so the host microservice can ship ECS JSON
+through Filebeat to Kafka / OpenSearch (the same path as Aries, candidate, and
+contact). Libraries do not run Filebeat themselves.
+
 ${symbol_pound}${symbol_pound} Requirements
 
 - **Java 21**
@@ -73,7 +77,7 @@ ${artifactId}/
 
 ${symbol_pound}${symbol_pound} How consumers use this library
 
-Once published, any Spring Boot 3 application that adds this artifact as a dependency
+Once published, any Spring Boot 4.1 application that adds this artifact as a dependency
 automatically picks up `${packageName}AutoConfiguration` (registered via
 `META-INF/spring/org.springframework.boot.autoconfigure.AutoConfiguration.imports`).
 That triggers `@ComponentScan`, `@EntityScan`, and `@EnableJpaRepositories` for

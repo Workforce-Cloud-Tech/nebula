@@ -23,7 +23,7 @@
 
         <!-- Spring Boot starter-parent version. Bump in one place when the platform updates. -->
         <requiredProperty key="springBootVersion">
-            <defaultValue>3.5.8</defaultValue>
+            <defaultValue>4.1.0</defaultValue>
         </requiredProperty>
 
         <!-- Sonar project key — defaults to the artifactId. -->

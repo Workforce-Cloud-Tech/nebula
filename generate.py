@@ -167,7 +167,7 @@ def collect_inputs(args: argparse.Namespace, default_output_dir: Path) -> dict:
         "Description", f"RecruitCRM {package_name} shared library"
     )
     spring_boot_version = args.spring_boot_version or prompt(
-        "spring-boot-starter-parent version", "3.5.8"
+        "spring-boot-starter-parent version", "4.1.0"
     )
     sonar_key = args.sonar_key or prompt(
         "Sonar project key", f"Workforce-Cloud-Tech_{artifact_id}"

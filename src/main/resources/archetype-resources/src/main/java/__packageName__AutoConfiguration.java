@@ -5,7 +5,7 @@
 
 package ${package};
 
-import org.springframework.boot.autoconfigure.domain.EntityScan;
+import org.springframework.boot.persistence.autoconfigure.EntityScan;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
@@ -13,7 +13,9 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 /**
  * Spring Boot {@code AutoConfiguration} entry point for this library.
  *
- * <p>Listed in {@code META-INF/spring/org.springframework.boot.autoconfigure.AutoConfiguration.imports}
+ * <p>
+ * Listed in
+ * {@code META-INF/spring/org.springframework.boot.autoconfigure.AutoConfiguration.imports}
  * so that any consuming Spring Boot application picks up this package's
  * components, JPA entities, and repositories automatically once the jar is on
  * the classpath.

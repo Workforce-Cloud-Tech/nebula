@@ -1,11 +1,12 @@
 # Nebula — RecruitCRM Java Package Archetype
 
-A **Maven archetype** that scaffolds a fresh Java 21 / Spring Boot 3 **library**
+A **Maven archetype** that scaffolds a fresh Java 21 / Spring Boot 4.1 **library**
 (publishable to AWS CodeArtifact) for the RecruitCRM platform with a single
 command. Modeled after [`recruitcrm-search-package-java`](https://github.com/Workforce-Cloud-Tech/recruitcrm-search-package-java),
 so every new package starts with the same Maven, Spotless, Checkstyle, JaCoCo,
-SonarCloud, semantic-release, Jenkins, and pre-commit conventions already wired
-in.
+SonarCloud, semantic-release, Jenkins, pre-commit, and `io.recruitcrm.logging`
+(ECS JSON for the host service's Filebeat → Kafka → OpenSearch pipeline)
+conventions already wired in.
 
 > Sister archetype to **[Starforge](../starforge)** (which scaffolds new
 > microservices). Nebula is for **shared libraries** — the things that get
@@ -17,7 +18,7 @@ in.
 
 ```
 my-new-package/
-├── pom.xml                          # Inherits spring-boot-starter-parent (default 3.5.8), publishes to CodeArtifact
+├── pom.xml                          # Inherits spring-boot-starter-parent (default 4.1.0), publishes to CodeArtifact
 ├── README.md
 ├── settings.xml                     # Maven CodeArtifact credentials wiring
 ├── checkstyle.xml + checkstyle-suppressions.xml
@@ -49,7 +50,7 @@ my-new-package/
             └── mockito-extensions/  # Drop org.mockito.plugins.MockMaker here when needed
 ```
 
-The Spring Boot AutoConfiguration import file ensures any Spring Boot 3
+The Spring Boot AutoConfiguration import file ensures any Spring Boot 4.1
 application that adds the published jar as a dependency automatically picks up
 the library's `@ComponentScan` / `@EntityScan` / `@EnableJpaRepositories` for
 its package — no extra wiring needed by consumers.
@@ -134,7 +135,7 @@ mvn archetype:generate \
   -DpackageName=Geocoding \
   -DpackageNameLower=geocoding \
   -DpackageDescription="RecruitCRM geocoding shared library" \
-  -DspringBootVersion=3.5.8 \
+  -DspringBootVersion=4.1.0 \
   -DinteractiveMode=false
 ```
 
@@ -155,7 +156,7 @@ shell script had.
 | `packageName`        | `Geocoding`                                            | PascalCase; drives the `<PackageName>AutoConfiguration` class |
 | `packageNameLower`   | `geocoding`                                            | Defaults to `artifactId`; used in a few config strings        |
 | `packageDescription` | `RecruitCRM geocoding shared library`                  | Free-form; lands in README + pom `<description>`              |
-| `springBootVersion`  | `3.5.8`                                                | spring-boot-starter-parent version                            |
+| `springBootVersion`  | `4.1.0`                                                | spring-boot-starter-parent version                            |
 | `sonarProjectKey`    | `Workforce-Cloud-Tech_geocoding-package`               | Defaults to `Workforce-Cloud-Tech_${artifactId}`              |
 
 ---

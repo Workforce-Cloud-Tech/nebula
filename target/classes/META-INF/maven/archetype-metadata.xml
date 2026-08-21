@@ -23,7 +23,7 @@
 
         <!-- Spring Boot starter-parent version. Bump in one place when the platform updates. -->
         <requiredProperty key="springBootVersion">
-            <defaultValue>3.5.8</defaultValue>
+            <defaultValue>4.1.0</defaultValue>
         </requiredProperty>
 
         <!-- Sonar project key — defaults to the artifactId. -->
@@ -132,6 +132,15 @@
             <directory>src/test/resources</directory>
             <includes>
                 <include>**/*</include>
+            </includes>
+        </fileSet>
+
+        <!-- Maven Site descriptor: filtered so ${artifactId} becomes the new
+             project's name in the generated site banner. -->
+        <fileSet filtered="true" encoding="UTF-8">
+            <directory>src/site</directory>
+            <includes>
+                <include>**/*.xml</include>
             </includes>
         </fileSet>
 
